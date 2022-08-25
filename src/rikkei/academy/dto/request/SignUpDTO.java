@@ -16,13 +16,13 @@ public class SignUpDTO {
     public SignUpDTO() {
     }
 
-    public SignUpDTO(int id, String name, String username, String email, String address, String password,String phoneNumber, Set<String> strRoles) {
+    public SignUpDTO(int id, String name, String username, String email, String password,String address,String phoneNumber, Set<String> strRoles) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
-        this.address = address;
         this.password = password;
+        this.address = address;
         this.phoneNumber = phoneNumber;
         this.strRoles = strRoles;
     }

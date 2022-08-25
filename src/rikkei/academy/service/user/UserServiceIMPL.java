@@ -22,6 +22,26 @@ public class UserServiceIMPL implements IUserService{
     }
 
     @Override
+    public User findById(int id) {
+        for (int i = 0; i < userList.size(); i++) {
+            if (id == userList.get(i).getId()) {
+                return userList.get(i);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteById(int id) {
+        for (int i = 0; i < userList.size(); i++) {
+            if (id==userList.get(i).getId()) {
+                userList.remove(i);
+            }
+        }
+
+    }
+
+    @Override
     public boolean existedByUserName(String userName) {
         for (int i = 0; i < userList.size(); i++) {
             if (userName.equals(userList.get(i).getUserName())){

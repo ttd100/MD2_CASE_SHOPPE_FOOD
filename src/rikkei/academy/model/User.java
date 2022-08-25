@@ -1,7 +1,5 @@
 package rikkei.academy.model;
 
-import rikkei.academy.dto.request.SignUpDTO;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,8 +16,6 @@ public class User implements Serializable {
     private boolean status;
     private Set<Role> roles = new HashSet<>();
 
-    public User() {
-    }
 
     public User(int id, String name, String userName, String email, String password, String address, String phoneNumber, String avatar, boolean status, Set<Role> roles) {
         this.id = id;
@@ -44,6 +40,15 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
         this.avatar = "";
         this.roles = roles;
+    }
+
+    public User(String newName, String newUsername, String newEmail, String newPassword, String newAddress, String newPhone) {
+        this.name = newName;
+        this.userName = newUsername;
+        this.email = newEmail;
+        this.password = newPassword;
+        this.address = newAddress;
+        this.phoneNumber = newPhone;
     }
 
     public int getId() {

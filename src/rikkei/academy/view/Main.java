@@ -1,5 +1,6 @@
 package rikkei.academy.view;
 
+import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 import rikkei.academy.config.Config;
 import rikkei.academy.controller.UserController;
 import rikkei.academy.model.User;
@@ -15,10 +16,11 @@ public class Main {
         if (user==null) {
             System.out.println("1.Register");
             System.out.println("2.Login");
-
         }else {
-            System.out.println("3.Show list user");
-            System.out.println("4.My profile");
+            System.out.println("3.edit user");
+            System.out.println("4.Delete user");
+            System.out.println("5.Show list user");
+            System.out.println("6.My profile");
         }
 
         int chooseMenu = Config.scanner().nextInt();
@@ -30,9 +32,15 @@ public class Main {
                 new ViewMainMenu().fromLogin();
                 break;
             case 3:
-                new ViewAdmin().showListUser();
+                new ViewAdmin().formEditUser();
                 break;
             case 4:
+                new ViewAdmin().formDeleteUser();
+                break;
+            case 5:
+                new ViewAdmin().showListUser();
+                break;
+            case 6:
                 new ViewAdmin().profile();
                 break;
         }

@@ -24,6 +24,21 @@ public class UserController {
     public List<User> showListUsers() {
         return userService.findAll();
     }
+    public void updateUser(int id, User newUser) {
+        User user1 = userService.findById(id);
+        user1.setName(newUser.getName());
+        user1.setUserName(newUser.getUserName());
+        user1.setEmail(newUser.getEmail());
+        user1.setPassword(newUser.getPassword());
+        user1.setAddress(newUser.getAddress());
+        user1.setPhoneNumber(newUser.getPhoneNumber());
+
+    }
+    public void deleteUser(int id) {userService.deleteById(id);}
+    public User detailUser(int id) {return userService.findById(id);}
+    public void deleteSinger(int id) {
+        userService.deleteById(id);
+    }
     public ResponseMessenger registerAdmin(SignUpDTO signUpDTO){
         if (userService.existedByUserName(signUpDTO.getUsername())){
             return new ResponseMessenger("username_existed");
@@ -76,10 +91,10 @@ public class UserController {
         Set<Role> roles = new HashSet<>();
         strRoles.forEach(role ->{
             switch (role){
-//                case "admin":
-//                    Role adminRole = roleService.findByName(RoleName.ADMIN);
-//                    roles.add(adminRole);
-//                    break;
+                case "admin":
+                    Role adminRole = roleService.findByName(RoleName.ADMIN);
+                    roles.add(adminRole);
+                    break;
                 case "driver":
                     Role driverRole = roleService.findByName(RoleName.DRIVER);
                     roles.add(driverRole);
