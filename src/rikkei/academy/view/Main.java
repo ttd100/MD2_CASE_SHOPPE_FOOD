@@ -16,6 +16,7 @@ public class Main {
         if (user==null) {
             System.out.println("1.Register");
             System.out.println("2.Login");
+            System.out.println("7.ViewFood");
         }else {
             System.out.println("3.edit user");
             System.out.println("4.Delete user");
@@ -32,16 +33,19 @@ public class Main {
                 new ViewMainMenu().fromLogin();
                 break;
             case 3:
-                new ViewAdmin().formEditUser();
+                new ViewUser().formEditUser();
                 break;
             case 4:
-                new ViewAdmin().formDeleteUser();
+                new ViewUser().formDeleteUser();
                 break;
             case 5:
-                new ViewAdmin().showListUser();
+                new ViewUser().showListUser();
                 break;
             case 6:
                 new ViewAdmin().profile();
+                break;
+            case 7:
+                new ViewFood();
                 break;
         }
 

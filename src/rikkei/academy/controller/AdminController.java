@@ -1,8 +1,6 @@
 package rikkei.academy.controller;
 
-import rikkei.academy.config.Config;
 import rikkei.academy.dto.request.SignUpDTO;
-import rikkei.academy.dto.request.SignInDTO;
 import rikkei.academy.dto.response.ResponseMessenger;
 import rikkei.academy.model.Role;
 import rikkei.academy.model.RoleName;
@@ -12,32 +10,14 @@ import rikkei.academy.service.role.RoleServiceIMPL;
 import rikkei.academy.service.user.IUserService;
 import rikkei.academy.service.user.UserServiceIMPL;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class UserController {
+public class AdminController {
     private final IUserService userService = new UserServiceIMPL();
     private IRoleService roleService = new RoleServiceIMPL();
 
-    public List<User> showListUsers() {
-        return userService.findAll();
-    }
-    public void updateUser(int id, User newUser) {
-        User user1 = userService.findById(id);
-        user1.setName(newUser.getName());
-        user1.setUserName(newUser.getUserName());
-        user1.setEmail(newUser.getEmail());
-        user1.setPassword(newUser.getPassword());
-        user1.setAddress(newUser.getAddress());
-        user1.setPhoneNumber(newUser.getPhoneNumber());
-
-    }
-    public void deleteUser(int id) {userService.deleteById(id);}
-    public User detailUser(int id) {return userService.findById(id);}
-
-    public ResponseMessenger register(SignUpDTO signUpDTO){
+    public ResponseMessenger registerAdmin(SignUpDTO signUpDTO){
         if (userService.existedByUserName(signUpDTO.getUsername())){
             return new ResponseMessenger("username_existed");
         }
@@ -60,12 +40,9 @@ public class UserController {
                     Role shopRole = roleService.findByName(RoleName.SHOP);
                     roles.add(shopRole);
                     break;
-                case "user":
+                default:
                     Role userRole = roleService.findByName(RoleName.USER);
                     roles.add(userRole);
-                    break;
-                default:
-                    System.out.println("no right, please try again");
             }
         });
         User user = new User(
@@ -78,22 +55,7 @@ public class UserController {
                 signUpDTO.getPhoneNumber(),
                 roles);
         userService.save(user);
-        showListUsers();
+//        showListUsers();
         return new ResponseMessenger("success");
     }
-    public ResponseMessenger login(SignInDTO signInDTO){
-        if (userService.checkLogin(signInDTO.getUsername(),signInDTO.getPassword() )){
-            User user = userService.findByUserName(signInDTO.getUsername());
-            List<User> userLogin = new ArrayList<>();
-            userLogin.add(user);
-            new Config<User>().writeFile(Config.PATH_USER_PRINCIPAL,userLogin);
-            return new ResponseMessenger("login_success");
-        }else {
-            return new ResponseMessenger("login_failed");
-        }
-    }
-    public User getCurrentUser() {
-        return  userService.getCurrentUser();
-    }
-
 }
