@@ -1,4 +1,7 @@
 package rikkei.academy.service.admin;
 
-public interface IAdminService {
+import rikkei.academy.model.Admin;
+import rikkei.academy.service.IGenericService;
+
+public interface IAdminService extends IGenericService<Admin> {
 }

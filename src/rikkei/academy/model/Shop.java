@@ -32,6 +32,16 @@ public class Shop implements Serializable {
         this.roles = roles;
     }
 
+    public Shop(int idShop, String nameShop, String usernameShop, String emailShop, String passwordShop, String addressShop, String phoneShop) {
+        this.id = idShop;
+        this.name = nameShop;
+        this.userName = usernameShop;
+        this.email = emailShop;
+        this.password = passwordShop;
+        this.address = addressShop;
+        this.phoneNumber = phoneShop;
+    }
+
     public int getId() {
         return id;
     }

@@ -152,19 +152,32 @@ public class ViewAdmin {
         System.out.println("check -->"+roleUser.equals("ADMIN"));
         if (roleUser.equals("ADMIN")) {
             System.out.println("********chuc nang danh cho admin********");
-            System.out.println("1.show List user ");
-            System.out.println("2.Create admin, user, shop, driver");
+            System.out.println("1.View User");
+            System.out.println("2.View Shop");
+            System.out.println("3.View Food");
+            System.out.println("4.Log out");
 
             int chooseMenuAdmin = Config.scanner().nextInt();
             switch (chooseMenuAdmin) {
                 case 1:
-//                    new ViewAdmin().showListUser();
+                    new ViewUserAfterAdmin();
                     break;
                 case 2:
-                    new ViewAdmin().formRegisterAdmin();
+                    new ViewShopAfterAdmin();
+                    break;
+                case 3:
+                    new ViewFoodAfterAdmin();
+                    break;
+                case 4:
+                    new Config<User>().writeFile(Config.PATH_USER_PRINCIPAL,null);
+                    new Main();
                     break;
             }
 
+        } else if (roleUser.equals("USER")) {
+            new ViewUser();
+        } else if (roleUser.equals("SHOP")) {
+            new ViewShop();
         }
         System.out.println("3. Log out");
         System.out.println("4. Back menu");

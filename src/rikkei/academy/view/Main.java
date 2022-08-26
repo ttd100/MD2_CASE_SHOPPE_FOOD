@@ -16,12 +16,10 @@ public class Main {
         if (user==null) {
             System.out.println("1.Register");
             System.out.println("2.Login");
-            System.out.println("7.ViewFood");
+
         }else {
-            System.out.println("3.edit user");
-            System.out.println("4.Delete user");
-            System.out.println("5.Show list user");
-            System.out.println("6.My profile");
+            System.out.println("3.Continue");
+
         }
 
         int chooseMenu = Config.scanner().nextInt();
@@ -33,20 +31,7 @@ public class Main {
                 new ViewMainMenu().fromLogin();
                 break;
             case 3:
-                new ViewUser().formEditUser();
-                break;
-            case 4:
-                new ViewUser().formDeleteUser();
-                break;
-            case 5:
-                new ViewUser().showListUser();
-                break;
-            case 6:
                 new ViewAdmin().profile();
-                break;
-            case 7:
-                new ViewFood();
-                break;
         }
 
     }
