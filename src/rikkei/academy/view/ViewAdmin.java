@@ -155,7 +155,8 @@ public class ViewAdmin {
             System.out.println("1.View User");
             System.out.println("2.View Shop");
             System.out.println("3.View Food");
-            System.out.println("4.Log out");
+            System.out.println("4.Register Admin");
+            System.out.println("5.Log out");
 
             int chooseMenuAdmin = Config.scanner().nextInt();
             switch (chooseMenuAdmin) {
@@ -169,6 +170,9 @@ public class ViewAdmin {
                     new ViewFoodAfterAdmin();
                     break;
                 case 4:
+                    formRegisterAdmin();
+                    break;
+                case 5:
                     new Config<User>().writeFile(Config.PATH_USER_PRINCIPAL,null);
                     new Main();
                     break;

@@ -4,16 +4,19 @@ import rikkei.academy.config.Config;
 import rikkei.academy.controller.ShopController;
 import rikkei.academy.controller.UserController;
 import rikkei.academy.model.Role;
+import rikkei.academy.model.RoleName;
 import rikkei.academy.model.Shop;
 import rikkei.academy.model.User;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static rikkei.academy.service.user.UserServiceIMPL.userList;
 
 public class ViewShopAfterAdmin {
     UserController userController = new UserController();
+    List<User> userList = userController.showListUsers();
 
     public ShopController shopController = new ShopController();
     public List<Shop> shopList = shopController.showListShop();
@@ -46,13 +49,13 @@ public class ViewShopAfterAdmin {
         }
         System.out.println("role--->" + roleUser);
         System.out.println("check -->" + roleUser.equals("SHOP"));
-            System.out.printf("%-10s%-10s%-10s%-20s%-15s%-15s%-15s%-15s%n","id","name","username","email","password","address","phoneNumber","role");
-            for (int i = 0; i < userList.size(); i++) {
-                if (roleUser.equals("SHOP")) {
-                    System.out.printf("%-10d%-10s%-10s%-20s%-15s%-15s%-15s%-15s%n", userList.get(i).getId(), userList.get(i).getName(), userList.get(i).getUserName(), userList.get(i).getEmail(), userList.get(i).getPassword(), userList.get(i).getAddress(), userList.get(i).getPhoneNumber(), userList.get(i).getRoles());
-                }
+        System.out.println(userList);
+        System.out.printf("%-10s%-10s%-10s%-20s%-15s%-15s%-15s%-15s%n","id","name","username","email","password","address","phoneNumber","role");
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getRoles().stream().collect(Collectors.toList()).get(0).getName() == RoleName.SHOP) {
+                System.out.printf("%-10d%-10s%-10s%-20s%-15s%-15s%-15s%-15s%n", userList.get(i).getId(), userList.get(i).getName(), userList.get(i).getUserName(), userList.get(i).getEmail(), userList.get(i).getPassword(), userList.get(i).getAddress(), userList.get(i).getPhoneNumber(), userList.get(i).getRoles());
             }
-
+        }
     }
 
 }
