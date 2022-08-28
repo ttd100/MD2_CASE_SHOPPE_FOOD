@@ -39,4 +39,14 @@ public class ShopServiceIMPL implements IShopService{
         }
     }
 
+    @Override
+    public void updateData() {
+
+    }
+
+    @Override
+    public void remove(int id) {
+
+    }
+
 }

@@ -12,19 +12,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static rikkei.academy.service.user.UserServiceIMPL.userList;
-
-public class ViewShopAfterAdmin {
+public class ViewManagerShop {
     UserController userController = new UserController();
     List<User> userList = userController.showListUsers();
 
     public ShopController shopController = new ShopController();
     public List<Shop> shopList = shopController.showListShop();
-    public ViewShopAfterAdmin() {
-        System.out.println("**********Shop*******");
-        System.out.println("1.Create Shop           4.Update Shop");
-        System.out.println("2.Show list Shop        5.Delete Shop");
-        System.out.println("3.Detail Shop           6.Sort Shop");
+    public ViewManagerShop() {
+        System.out.println("***************SHOP MANAGER*************");
+        System.out.println("1.Show List SHOP");
+        System.out.println("2.Create SHOP");
+        System.out.println("3.Delete SHOP");
+        System.out.println("4.Change SHOP");
+        System.out.println("5.Block SHOP");
         int chooseShop = Config.scanner().nextInt();
         switch (chooseShop) {
             case 1:

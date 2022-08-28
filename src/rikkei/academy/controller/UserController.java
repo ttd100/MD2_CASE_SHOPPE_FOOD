@@ -12,18 +12,21 @@ import rikkei.academy.service.role.RoleServiceIMPL;
 import rikkei.academy.service.user.IUserService;
 import rikkei.academy.service.user.UserServiceIMPL;
 
+import javax.swing.plaf.nimbus.AbstractRegionPainter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class UserController {
-    private final IUserService userService = new UserServiceIMPL();
-    private IRoleService roleService = new RoleServiceIMPL();
+    IUserService userService = new UserServiceIMPL();
+    User currentUser = userService.getCurrentUser();
+    IRoleService roleService = new RoleServiceIMPL();
 
     public List<User> showListUsers() {
         return userService.findAll();
     }
+
     public void updateUser(int id, User newUser) {
         User user1 = userService.findById(id);
         user1.setName(newUser.getName());
@@ -34,20 +37,22 @@ public class UserController {
         user1.setPhoneNumber(newUser.getPhoneNumber());
 
     }
-    public void deleteUser(int id) {userService.deleteById(id);}
-    public User detailUser(int id) {return userService.findById(id);}
 
-    public ResponseMessenger register(SignUpDTO signUpDTO){
-        if (userService.existedByUserName(signUpDTO.getUsername())){
+    public User detailUser(int id) {
+        return userService.findById(id);
+    }
+
+    public ResponseMessenger register(SignUpDTO signUpDTO) {
+        if (userService.existedByUserName(signUpDTO.getUsername())) {
             return new ResponseMessenger("username_existed");
         }
-        if (userService.existByEmail(signUpDTO.getEmail())){
+        if (userService.existByEmail(signUpDTO.getEmail())) {
             return new ResponseMessenger("email_existed");
         }
         Set<String> strRoles = signUpDTO.getStrRoles();
         Set<Role> roles = new HashSet<>();
-        strRoles.forEach(role ->{
-            switch (role){
+        strRoles.forEach(role -> {
+            switch (role) {
                 case "admin":
                     Role adminRole = roleService.findByName(RoleName.ADMIN);
                     roles.add(adminRole);
@@ -81,19 +86,52 @@ public class UserController {
         showListUsers();
         return new ResponseMessenger("success");
     }
-    public ResponseMessenger login(SignInDTO signInDTO){
-        if (userService.checkLogin(signInDTO.getUsername(),signInDTO.getPassword() )){
+
+    public ResponseMessenger login(SignInDTO signInDTO) {
+        if (userService.checkLogin(signInDTO.getUsername(), signInDTO.getPassword())) {
             User user = userService.findByUserName(signInDTO.getUsername());
             List<User> userLogin = new ArrayList<>();
             userLogin.add(user);
-            new Config<User>().writeFile(Config.PATH_USER_PRINCIPAL,userLogin);
+            new Config<User>().writeFile(Config.PATH_USER_PRINCIPAL, userLogin);
             return new ResponseMessenger("login_success");
-        }else {
+        } else {
             return new ResponseMessenger("login_failed");
         }
     }
+
     public User getCurrentUser() {
-        return  userService.getCurrentUser();
+        return userService.getCurrentUser();
     }
+
+    public ResponseMessenger changePassword(String oldPassword, String newPassword) {
+        if (!oldPassword.equals(currentUser.getPassword())) {
+            return new ResponseMessenger("not_match");
+        }
+        userService.findById(currentUser.getId()).setPassword(newPassword);
+        userService.updateData();
+        return new ResponseMessenger("success");
+    }
+
+    public ResponseMessenger deleteUser(int id) {
+        if (userService.findById(id) == null || id == 0) {
+            return new ResponseMessenger("not_found");
+        }
+        userService.remove(id);
+        return new ResponseMessenger("success");
+    }
+
+    public ResponseMessenger changeRole(int id, String roleName) {
+        if (userService.findById(id) == null || id == 0) {
+            return new ResponseMessenger("not_found");
+        }
+        if (!roleName.equals("user") && !roleName.equals("shop")) {
+            return new ResponseMessenger("invalid_role");
+        }
+        Role role = roleName.equals("user") ? roleService.findByRoleName(RoleName.USER) : (roleService.findByRoleName(RoleName.SHOP));
+        userService.changeRole(id, role);
+        return new ResponseMessenger("success");
+
+    }
+
 
 }

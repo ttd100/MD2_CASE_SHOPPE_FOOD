@@ -38,4 +38,14 @@ public class AdminServiceIMPL implements IAdminService {
             }
         }
     }
+
+    @Override
+    public void updateData() {
+
+    }
+
+    @Override
+    public void remove(int id) {
+
+    }
 }

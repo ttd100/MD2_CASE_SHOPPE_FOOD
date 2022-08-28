@@ -35,4 +35,23 @@ public class Config<T> {
             e.printStackTrace();
         }
     }
+
+    public static int getValidInteger() {
+        int integer;
+        while (true) {
+            System.out.println("Enter choice / 0 to back");
+            String s = scanner().nextLine();
+
+            if (Integer.parseInt(s) == 0) return 0;
+
+            if (s.matches("\\d+")) {
+                integer = Integer.parseInt(s);
+                break;
+            } else {
+                System.out.println("Invalid number, try again!");
+            }
+        }
+        return integer;
+    }
+
 }

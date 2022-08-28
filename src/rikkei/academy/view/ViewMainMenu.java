@@ -130,7 +130,7 @@ public class ViewMainMenu {
             for (int i = 0; i < userList.size(); i++){
                 System.out.printf("%-10d%-10s%-10s%-20s%-15s%-15s%-15s%-15s%n",userList.get(i).getId(),userList.get(i).getName(),userList.get(i).getUserName(),userList.get(i).getEmail(),userList.get(i).getPassword(),userList.get(i).getAddress(),userList.get(i).getPhoneNumber(),userList.get(i).getRoles());
             }
-//            new Main();
+            new ViewAdmin().profile();
         }
     }
 

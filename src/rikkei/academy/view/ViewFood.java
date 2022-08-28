@@ -7,11 +7,11 @@ import rikkei.academy.model.User;
 
 import java.util.List;
 
-public class ViewFoodAfterAdmin {
+public class ViewFood {
     public FoodController foodController = new FoodController();
     public List<Food> foodList = foodController.showListFood();
 
-    public ViewFoodAfterAdmin() {
+    public ViewFood() {
         System.out.println("**********Food*******");
         System.out.println("1.Create list Food      4.Update Food");
         System.out.println("2.Show list Food        5.Delete Food");
@@ -65,7 +65,7 @@ public class ViewFoodAfterAdmin {
             System.out.println("Enter quit to back menu: ");
             String backMenu = Config.scanner().nextLine();
             if (backMenu.equalsIgnoreCase("quit")) {
-                new ViewFoodAfterAdmin();
+                new ViewFood();
             }
         }
     }
@@ -80,7 +80,7 @@ public class ViewFoodAfterAdmin {
         System.out.println("Enter quit to back menu: ");
         String backMenu = Config.scanner().nextLine();
         if (backMenu.equalsIgnoreCase("quit")) {
-            new ViewFoodAfterAdmin();
+            new ViewFood();
         }
     }
     public void formDetailFood() {
@@ -95,7 +95,7 @@ public class ViewFoodAfterAdmin {
         System.out.println("Enter quit to back menu:");
         String backMenu = Config.scanner().nextLine();
         if (backMenu.equalsIgnoreCase("quit")) {
-            new ViewFoodAfterAdmin();
+            new ViewFood();
         }
     }
 
@@ -125,7 +125,7 @@ public class ViewFoodAfterAdmin {
         } System.out.println("Enter quit to back menu: ");
         String backMenu = Config.scanner().nextLine();
         if (backMenu.equalsIgnoreCase("quit")) {
-            new ViewFoodAfterAdmin();
+            new ViewFood();
         }
     }
     public void formShowListFoodAfterSort(){
@@ -138,7 +138,7 @@ public class ViewFoodAfterAdmin {
         System.out.println("Enter quit to back menu: ");
         String backMenu = Config.scanner().nextLine();
         if (backMenu.equalsIgnoreCase("quit")) {
-            new ViewFoodAfterAdmin();
+            new ViewFood();
         }
 
     }
@@ -156,7 +156,7 @@ public class ViewFoodAfterAdmin {
                     System.out.println("delete success");
                     break;
                 case 2:
-                    new ViewFoodAfterAdmin();
+                    new ViewFood();
                     break;
             }
         }

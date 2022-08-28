@@ -29,6 +29,15 @@ public class User implements Serializable {
         this.status = status;
         this.roles = roles;
     }
+    public User(int id, String name, String username, String password, String email, boolean status, Set<Role> roles) {
+        this.id = id;
+        this.name = name;
+        this.userName = username;
+        this.password = password;
+        this.email = email;
+        this.status = status;
+        this.roles = roles;
+    }
 
     public User(int id, String name, String username, String email, String password, String address, String phoneNumber, Set<Role> roles) {
         this.id = id;
@@ -126,6 +135,16 @@ public class User implements Serializable {
     public Set<Role> getRoles() {
         return roles;
     }
+    public RoleName getRoleName() {
+        for (Role role : roles) {
+            if (role.getName() == RoleName.ADMIN) return RoleName.ADMIN;
+            if (role.getName() == RoleName.USER) return RoleName.USER;
+            if (role.getName() == RoleName.DRIVER) return RoleName.DRIVER;
+            if (role.getName() == RoleName.SHOP)return RoleName.SHOP;
+        }
+        return null;
+    }
+
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;

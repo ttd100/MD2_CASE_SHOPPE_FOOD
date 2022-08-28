@@ -12,22 +12,22 @@ public class ViewShop {
         int chooseFood = Config.scanner().nextInt();
         switch (chooseFood) {
             case 1:
-                new ViewFoodAfterAdmin().formCreateFood();
+                new ViewFood().formCreateFood();
                 break;
             case 2:
-                new ViewFoodAfterAdmin().formShowListFood();
+                new ViewFood().formShowListFood();
                 break;
             case 3:
-                new ViewFoodAfterAdmin().formDetailFood();
+                new ViewFood().formDetailFood();
                 break;
             case 4:
-                new ViewFoodAfterAdmin().formEditFood();
+                new ViewFood().formEditFood();
                 break;
             case 5:
-                new ViewFoodAfterAdmin().formDeleteFood();
+                new ViewFood().formDeleteFood();
                 break;
             case 6:
-                new ViewFoodAfterAdmin().formShowListFoodAfterSort();
+                new ViewFood().formShowListFoodAfterSort();
                 break;
             case 7:
                 new Config<User>().writeFile(Config.PATH_USER_PRINCIPAL,null);

@@ -7,4 +7,7 @@ public interface IGenericService<T> {
     void save(T t);
     T findById(int id);
     void deleteById(int id);
+    void updateData();
+
+    void remove(int id);
 }

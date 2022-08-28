@@ -40,6 +40,16 @@ public class FoodServiceIMPL implements IFoodService {
     }
 
     @Override
+    public void updateData() {
+
+    }
+
+    @Override
+    public void remove(int id) {
+
+    }
+
+    @Override
     public List<Food> sortByNameAndByPrice() {
         List<Food> listSort = new ArrayList<>();
         for (int i = 0; i < foodList.size(); i++) {

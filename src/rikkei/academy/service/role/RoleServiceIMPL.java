@@ -29,4 +29,15 @@ public class RoleServiceIMPL implements IRoleService {
         }
         return null;
     }
+
+    @Override
+    public Role findByRoleName(RoleName roleName) {
+        for (Role role : roleList) {
+            if (role.getName() == roleName) {
+                return role;
+            }
+        }
+        return null;
+    }
+
 }

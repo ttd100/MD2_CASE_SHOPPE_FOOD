@@ -8,6 +8,7 @@ import rikkei.academy.dto.response.ResponseMessenger;
 import rikkei.academy.model.Role;
 import rikkei.academy.model.User;
 
+import java.sql.SQLOutput;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -18,9 +19,6 @@ public class ViewAdmin {
     UserController userController = new UserController();
     AdminController adminController = new AdminController();
     List<User> userList = userController.showListUsers();
-    public ViewAdmin(){
-
-    }
     public void formRegisterAdmin(){
 
         System.out.println("**************CREATE ADMIN,USER,DRIVER,SHOP***************");
@@ -151,23 +149,23 @@ public class ViewAdmin {
         System.out.println("role--->"+roleUser);
         System.out.println("check -->"+roleUser.equals("ADMIN"));
         if (roleUser.equals("ADMIN")) {
-            System.out.println("********chuc nang danh cho admin********");
+            System.out.println("********ADMIN MANAGER********");
             System.out.println("1.View User");
             System.out.println("2.View Shop");
-            System.out.println("3.View Food");
+            System.out.println("3.View Driver");
             System.out.println("4.Register Admin");
             System.out.println("5.Log out");
 
             int chooseMenuAdmin = Config.scanner().nextInt();
             switch (chooseMenuAdmin) {
                 case 1:
-                    new ViewUserAfterAdmin();
+                    new ViewManagerUser();
                     break;
                 case 2:
-                    new ViewShopAfterAdmin();
+                    new ViewManagerShop();
                     break;
                 case 3:
-                    new ViewFoodAfterAdmin();
+                    new ViewFood();
                     break;
                 case 4:
                     formRegisterAdmin();
@@ -182,6 +180,8 @@ public class ViewAdmin {
             new ViewUser();
         } else if (roleUser.equals("SHOP")) {
             new ViewShop();
+        } else if (roleUser.equals("DRIVER")) {
+
         }
         System.out.println("3. Log out");
         System.out.println("4. Back menu");

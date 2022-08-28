@@ -3,18 +3,18 @@ package rikkei.academy.view;
 import rikkei.academy.config.Config;
 import rikkei.academy.model.User;
 
-public class ViewUser {
-    public ViewUser() {
+public class ViewDriver {
+    public ViewDriver(){
         System.out.println("1.Show list Shop.");
-        System.out.println("2.show list Food");
-        System.out.println("3.Log out");
-        int chooseUser = Config.scanner().nextInt();
-        switch (chooseUser) {
+        System.out.println("2.Show List User.");
+        System.out.println("3.Log out.");
+        int chooseDriver = Config.scanner().nextInt();
+        switch (chooseDriver) {
             case 1:
                 new ViewManagerShop().formShowListShop();
                 break;
             case 2:
-                new ViewFood().formShowListFood();
+                new ViewManagerUser().showListUser();
                 break;
             case 3:
                 new Config<User>().writeFile(Config.PATH_USER_PRINCIPAL,null);

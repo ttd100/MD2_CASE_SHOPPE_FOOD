@@ -1,14 +1,38 @@
 package rikkei.academy.service.user;
 
 import rikkei.academy.config.Config;
+import rikkei.academy.model.Role;
+import rikkei.academy.model.RoleName;
 import rikkei.academy.model.User;
+import rikkei.academy.service.role.RoleServiceIMPL;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class UserServiceIMPL implements IUserService{
     public static String PATH_USER = "D:\\MD2_CASE_SHOPPE_FOOD\\src\\rikkei\\academy\\database\\user.txt";
-    public static List<User> userList = new Config<User>().readFile(PATH_USER);
+    static Config<User> config = new Config<>();
+    public static List<User> userList = config.readFile(PATH_USER);
+
+    static {
+        if (userList == null || userList.size() == 0) {
+            userList = new ArrayList<>();
+            Set<Role> roles = new HashSet<>();
+            roles.add(new RoleServiceIMPL().findByRoleName(RoleName.ADMIN));
+            userList.add(
+                    new User(0,
+                            "Admin",
+                            "admin",
+                            "admin",
+                            "admin@gmail.com",
+
+                            true,
+                            roles
+                    )
+            );
+        }
+    }
+
+
 
     @Override
     public List<User> findAll() {
@@ -42,6 +66,17 @@ public class UserServiceIMPL implements IUserService{
     }
 
     @Override
+    public void updateData() {
+        config.writeFile(PATH_USER, userList);
+    }
+
+    @Override
+    public void remove(int id) {
+        userList.remove(findById(id));
+        updateData();
+    }
+
+    @Override
     public boolean existedByUserName(String userName) {
         for (int i = 0; i < userList.size(); i++) {
             if (userName.equals(userList.get(i).getUserName())){
@@ -63,6 +98,7 @@ public class UserServiceIMPL implements IUserService{
 
     @Override
     public boolean checkLogin(String userName, String password) {
+        System.out.println(userList);
         for (int i = 0; i < userList.size(); i++) {
             if (userName.equals(userList.get(i).getUserName()) && password.equals(userList.get(i).getPassword())) {
                 return true;
@@ -91,4 +127,13 @@ public class UserServiceIMPL implements IUserService{
         }
         return null;
     }
+
+    @Override
+    public void changeRole(int id, Role role) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        findById(id).setRoles(roles);
+        updateData();
+    }
+
 }
