@@ -11,10 +11,10 @@ public class ViewDriver {
         int chooseDriver = Config.scanner().nextInt();
         switch (chooseDriver) {
             case 1:
-                new ViewManagerShop().formShowListShop();
+                new ViewMainMenu().formShowListShop();
                 break;
             case 2:
-                new ViewManagerUser().showListUser();
+                new ViewMainMenu().showListUser();
                 break;
             case 3:
                 new Config<User>().writeFile(Config.PATH_USER_PRINCIPAL,null);

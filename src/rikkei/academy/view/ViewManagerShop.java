@@ -37,7 +37,7 @@ public class ViewManagerShop {
     }
 
     public void formShowListShop() {
-        User userLogin = userController.getCurrentUser();
+        User userLogin =    userController.getCurrentUser();
         System.out.println("wellcome: " + userLogin.getName());
 
 //        System.out.println("role: "+ userLogin.getRoles());

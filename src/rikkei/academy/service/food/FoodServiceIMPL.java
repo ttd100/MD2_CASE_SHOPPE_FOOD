@@ -63,7 +63,7 @@ public class FoodServiceIMPL implements IFoodService {
     public Food findFoodByName(String name) {
         for (int i = 0; i < foodList.size(); i++) {
             if (name.equalsIgnoreCase(foodList.get(i).getName())) {
-                System.out.println(foodList.get(i));
+                return foodList.get(i);
             }
         }
         return null;

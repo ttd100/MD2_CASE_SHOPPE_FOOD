@@ -7,22 +7,46 @@ import rikkei.academy.controller.UserController;
 import rikkei.academy.dto.request.SignInDTO;
 import rikkei.academy.dto.request.SignUpDTO;
 import rikkei.academy.dto.response.ResponseMessenger;
-import rikkei.academy.model.Category;
-import rikkei.academy.model.Food;
-import rikkei.academy.model.User;
+import rikkei.academy.model.*;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static rikkei.academy.view.ViewCategory.categoryController;
 
 public class ViewMainMenu {
+
+
     UserController userController = new UserController();
     List<User> userList = userController.showListUsers();
     FoodController foodController = new FoodController();
+    public List<Food> foodList = foodController.showListFood();
     static List<Category> categoryList = CategoryController.showListFoodCategory();
+    public void formShowListShop() {
+        User userLogin = userController.getCurrentUser();
+        System.out.println("wellcome: " + userLogin.getName());
+
+//        System.out.println("role: "+ userLogin.getRoles());
+        String roleUser = null;
+        Iterator<Role> iterator = userLogin.getRoles().iterator();
+        while (iterator.hasNext()) {
+//            System.out.println(iterator.next().getName());
+            roleUser = String.valueOf(iterator.next().getName());
+        }
+        System.out.println("role--->" + roleUser);
+        System.out.println("check -->" + roleUser.equals("SHOP"));
+        System.out.println(userList);
+        System.out.printf("%-10s%-10s%-10s%-20s%-15s%-15s%-15s%-15s%n","id","name","username","email","password","address","phoneNumber","role");
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getRoles().stream().collect(Collectors.toList()).get(0).getName() == RoleName.SHOP) {
+                System.out.printf("%-10d%-10s%-10s%-20s%-15s%-15s%-15s%-15s%n", userList.get(i).getId(), userList.get(i).getName(), userList.get(i).getUserName(), userList.get(i).getEmail(), userList.get(i).getPassword(), userList.get(i).getAddress(), userList.get(i).getPhoneNumber(), userList.get(i).getRoles());
+            }
+        }
+    }
     public void formShowListFoodCategory(){
         System.out.println("=========id========name========");
         for (int i = 0; i < categoryList.size(); i++){
@@ -44,6 +68,40 @@ public class ViewMainMenu {
             System.out.println(food);
         }
         System.out.println("Enter quit to back menu:");
+        String backMenu = Config.scanner().nextLine();
+        if (backMenu.equalsIgnoreCase("quit")) {
+            new Main();
+        }
+    }
+    public void showListUser(){
+        User userLogin = userController.getCurrentUser();
+        System.out.println("wellcome: " + userLogin.getName());
+
+//        System.out.println("role: "+ userLogin.getRoles());
+        String roleUser = null;
+        Iterator<Role> iterator = userLogin.getRoles().iterator();
+        while (iterator.hasNext()) {
+//            System.out.println(iterator.next().getName());
+            roleUser = String.valueOf(iterator.next().getName());
+        }
+        System.out.println("role--->" + roleUser);
+        System.out.println("check -->" + roleUser.equals("USER"));
+        System.out.printf("%-10s%-10s%-10s%-20s%-15s%-15s%-15s%-15s%n","id","name","username","email","password","address","phoneNumber","role");
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getRoles().stream().collect(Collectors.toList()).get(0).getName() == RoleName.USER) {
+                System.out.printf("%-10d%-10s%-10s%-20s%-15s%-15s%-15s%-15s%n", userList.get(i).getId(), userList.get(i).getName(), userList.get(i).getUserName(), userList.get(i).getEmail(), userList.get(i).getPassword(), userList.get(i).getAddress(), userList.get(i).getPhoneNumber(), userList.get(i).getRoles());
+            }
+        }
+    }
+    public void formShowListFood() {
+        System.out.println("***********SHOW LIST FOOD***********");
+        System.out.printf("%-10s%-10s%-10s%n","id","Food","price");
+        for (int i = 0; i < foodList.size(); i++) {
+            int j = i + 1;
+            System.out.printf( "%-10d%-10s%-10d%n", j, foodList.get(i).getName(),foodList.get(i).getPrice());
+        }
+//        System.out.println(foodController.showListFood());
+        System.out.println("Enter quit to back menu: ");
         String backMenu = Config.scanner().nextLine();
         if (backMenu.equalsIgnoreCase("quit")) {
             new ViewFood();
@@ -165,7 +223,6 @@ public class ViewMainMenu {
             for (int i = 0; i < userList.size(); i++){
                 System.out.printf("%-10d%-10s%-10s%-20s%-15s%-15s%-15s%-15s%n",userList.get(i).getId(),userList.get(i).getName(),userList.get(i).getUserName(),userList.get(i).getEmail(),userList.get(i).getPassword(),userList.get(i).getAddress(),userList.get(i).getPhoneNumber(),userList.get(i).getRoles());
             }
-            new ViewAdmin().profile();
         }
     }
 
@@ -211,7 +268,4 @@ public class ViewMainMenu {
                 System.out.println("Username or password is incorrect!");
         }
     }
-
-
-
 }

@@ -37,4 +37,8 @@ public class Role implements Serializable {
                 ", name=" + name +
                 '}';
     }
+
+    public RoleName getRoleName() {
+        return name;
+    }
 }

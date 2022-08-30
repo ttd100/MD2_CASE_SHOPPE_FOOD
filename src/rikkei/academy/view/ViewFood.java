@@ -15,10 +15,10 @@ public class ViewFood {
 
     public ViewFood() {
         System.out.println("**********Food*******");
-        System.out.println("1.Create list Food      4.Update Food");
-        System.out.println("2.Show list Food        5.Delete Food");
-        System.out.println("3.Detail Food           6.Sort Food");
-        System.out.println("           7.Log out");
+        System.out.println("1.Create list Food      5.Delete Food");
+        System.out.println("2.Show list Food        6.Sort Food");
+        System.out.println("3.Detail Food           7.Back menu");
+        System.out.println("4.Update Food           8.Log out");
         int chooseFood = Config.scanner().nextInt();
         switch (chooseFood) {
             case 1:
@@ -40,6 +40,9 @@ public class ViewFood {
                 formShowListFoodAfterSort();
                 break;
             case 7:
+                new Main();
+                break;
+            case 8:
                 new Config<User>().writeFile(Config.PATH_USER_PRINCIPAL,null);
                 new Main();
                 break;
@@ -77,13 +80,12 @@ public class ViewFood {
     }
 
     public void formShowListFood() {
-//        System.out.println("***********SHOW LIST FOOD***********");
-//        System.out.printf("%-10s%-10s%-10s%n","id","Food","price");
-//        for (int i = 0; i < foodList.size(); i++) {
-//            int j = i + 1;
-//            System.out.printf( "%-10d%-10s%-10d%n", j, foodList.get(i).getName(),foodList.get(i).getPrice());
-//        }
-        System.out.println(foodController.showListFood());
+        System.out.println("***********SHOW LIST FOOD***********");
+        System.out.printf("%-10s%-10s%-10s%-10s%n","id","Food","price","Category");
+        for (int i = 0; i < foodList.size(); i++) {
+            int j = i + 1;
+            System.out.printf( "%-10d%-10s%-10d%-10s%n", j, foodList.get(i).getName(),foodList.get(i).getPrice(),foodList.get(i).getCategory());
+        }
         System.out.println("Enter quit to back menu: ");
         String backMenu = Config.scanner().nextLine();
         if (backMenu.equalsIgnoreCase("quit")) {

@@ -172,6 +172,9 @@ public class ViewAdmin {
                     formRegisterAdmin();
                     break;
                 case 5:
+                    new ViewCategory();
+                    break;
+                case 6:
                     new Config<User>().writeFile(Config.PATH_USER_PRINCIPAL,null);
                     new Main();
                     break;
@@ -182,6 +185,7 @@ public class ViewAdmin {
         } else if (roleUser.equals("SHOP")) {
             System.out.println("1.ViewCategory");
             System.out.println("2.View Food");
+            System.out.println("3.log out");
             int choose = Config.scanner().nextInt();
             switch (choose) {
                 case 1:
@@ -190,8 +194,13 @@ public class ViewAdmin {
                 case 2:
                     new ViewShop();
                     break;
+                case 3:
+                    new Config<User>().writeFile(Config.PATH_USER_PRINCIPAL,null);
+                    new Main();
+                    break;
             }
         } else if (roleUser.equals("DRIVER")) {
+            new ViewDriver();
 
         }
         System.out.println("3. Log out");
