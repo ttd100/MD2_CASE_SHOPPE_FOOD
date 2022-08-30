@@ -11,5 +11,6 @@ public interface IUserService extends IGenericService<User> {
     User findByUserName(String userName);
     User getCurrentUser();
     void changeRole(int id, Role role);
-
+    void changeStatus(int id);
+    void saveCurrentUser(User user);
 }

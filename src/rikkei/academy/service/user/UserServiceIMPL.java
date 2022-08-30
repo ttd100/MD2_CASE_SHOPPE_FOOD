@@ -8,6 +8,8 @@ import rikkei.academy.service.role.RoleServiceIMPL;
 
 import java.util.*;
 
+import static rikkei.academy.config.Config.PATH_USER_PRINCIPAL;
+
 public class UserServiceIMPL implements IUserService{
     public static String PATH_USER = "D:\\MD2_CASE_SHOPPE_FOOD\\src\\rikkei\\academy\\database\\user.txt";
     static Config<User> config = new Config<>();
@@ -25,7 +27,7 @@ public class UserServiceIMPL implements IUserService{
                             "admin",
                             "admin@gmail.com",
 
-                            true,
+                            false,
                             roles
                     )
             );
@@ -119,9 +121,9 @@ public class UserServiceIMPL implements IUserService{
 
     @Override
     public User getCurrentUser() {
-        if (new Config<User>().readFile(Config.PATH_USER_PRINCIPAL)!=null) {
-            if(new Config<User>().readFile(Config.PATH_USER_PRINCIPAL).size() != 0 ){
-                User user = new Config<User>().readFile(Config.PATH_USER_PRINCIPAL).get(0);
+        if (new Config<User>().readFile(PATH_USER_PRINCIPAL)!=null) {
+            if(new Config<User>().readFile(PATH_USER_PRINCIPAL).size() != 0 ){
+                User user = new Config<User>().readFile(PATH_USER_PRINCIPAL).get(0);
                 return user;
             }
         }
@@ -134,6 +136,20 @@ public class UserServiceIMPL implements IUserService{
         roles.add(role);
         findById(id).setRoles(roles);
         updateData();
+    }
+
+    @Override
+    public void changeStatus(int id) {
+        User user = findById(id);
+        user.setStatus(!user.isStatus());
+        updateData();
+    }
+
+    @Override
+    public void saveCurrentUser(User user) {
+        ArrayList<User> tList = new ArrayList<>();
+        tList.add(user);
+        new Config<User>().writeFile(PATH_USER_PRINCIPAL, tList);
     }
 
 }

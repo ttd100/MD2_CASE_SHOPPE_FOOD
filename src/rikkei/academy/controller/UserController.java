@@ -88,15 +88,18 @@ public class UserController {
     }
 
     public ResponseMessenger login(SignInDTO signInDTO) {
-        if (userService.checkLogin(signInDTO.getUsername(), signInDTO.getPassword())) {
-            User user = userService.findByUserName(signInDTO.getUsername());
-            List<User> userLogin = new ArrayList<>();
-            userLogin.add(user);
-            new Config<User>().writeFile(Config.PATH_USER_PRINCIPAL, userLogin);
-            return new ResponseMessenger("login_success");
-        } else {
-            return new ResponseMessenger("login_failed");
+        if (!userService.checkLogin(signInDTO.getUsername(), signInDTO.getPassword())) {
+            return new ResponseMessenger("login_failure");
         }
+        if (userService.findByUserName(signInDTO.getUsername()).isStatus()) {
+            return new ResponseMessenger("blocked");
+        }
+
+        User userLogin = userService.findByUserName(signInDTO.getUsername());
+
+        userService.saveCurrentUser(userLogin);
+
+        return new ResponseMessenger("login_success");
     }
 
     public User getCurrentUser() {
@@ -131,6 +134,18 @@ public class UserController {
         userService.changeRole(id, role);
         return new ResponseMessenger("success");
 
+    }
+    public ResponseMessenger blockUser(int id) {
+        if (userService.findById(id) == null || id == 0) {
+            return new ResponseMessenger("not_found");
+        }
+        userService.changeStatus(id);
+        boolean check = userService.findById(id).isStatus();
+        if (check) {
+            return new ResponseMessenger("blocked");
+        } else {
+            return new ResponseMessenger("unblocked");
+        }
     }
 
 

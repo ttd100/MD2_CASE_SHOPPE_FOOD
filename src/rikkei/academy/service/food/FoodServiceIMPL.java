@@ -58,4 +58,26 @@ public class FoodServiceIMPL implements IFoodService {
         Collections.sort(listSort);
         return listSort;
     }
+
+    @Override
+    public Food findFoodByName(String name) {
+        for (int i = 0; i < foodList.size(); i++) {
+            if (name.equalsIgnoreCase(foodList.get(i).getName())) {
+                System.out.println(foodList.get(i));
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void editById(Food food) {
+        for (int i = 0; i < foodList.size(); i++) {
+            if (foodList.get(i).getId() == food.getId()) {
+                foodList.get(i).setName(food.getName());
+                foodList.get(i).setPrice(food.getPrice());
+                foodList.get(i).setCategory(food.getCategory());
+            }
+        }
+        new Config<Food>().writeFile(PATH_FOOD,foodList);
+    }
 }

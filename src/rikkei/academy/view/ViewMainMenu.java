@@ -1,10 +1,14 @@
 package rikkei.academy.view;
 
 import rikkei.academy.config.Config;
+import rikkei.academy.controller.CategoryController;
+import rikkei.academy.controller.FoodController;
 import rikkei.academy.controller.UserController;
 import rikkei.academy.dto.request.SignInDTO;
 import rikkei.academy.dto.request.SignUpDTO;
 import rikkei.academy.dto.response.ResponseMessenger;
+import rikkei.academy.model.Category;
+import rikkei.academy.model.Food;
 import rikkei.academy.model.User;
 
 import java.util.HashSet;
@@ -12,9 +16,40 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import static rikkei.academy.view.ViewCategory.categoryController;
+
 public class ViewMainMenu {
     UserController userController = new UserController();
     List<User> userList = userController.showListUsers();
+    FoodController foodController = new FoodController();
+    static List<Category> categoryList = CategoryController.showListFoodCategory();
+    public void formShowListFoodCategory(){
+        System.out.println("=========id========name========");
+        for (int i = 0; i < categoryList.size(); i++){
+            System.out.println("========="+categoryList.get(i).getId()+"========="+categoryList.get(i).getName()+"========");
+        }
+        System.out.println("Enter random for continue and enter quit for out");
+        String backMenu = Config.scanner().nextLine();
+        if(backMenu.equalsIgnoreCase("quit")){
+            new ViewAdmin().profile();
+        }
+    }
+    public void formDetailFood() {
+        System.out.println("Enter name to detail: ");
+        String foodName = Config.scanner().nextLine();
+        if (foodController.findFoodByName(foodName) == null) {
+            System.out.println("name not found");
+        } else {
+            Food food = foodController.findFoodByName(foodName);
+            System.out.println(food);
+        }
+        System.out.println("Enter quit to back menu:");
+        String backMenu = Config.scanner().nextLine();
+        if (backMenu.equalsIgnoreCase("quit")) {
+            new ViewFood();
+        }
+    }
+
 
 
     public void formRegister(){
@@ -161,14 +196,19 @@ public class ViewMainMenu {
                 System.err.println("The name failed! try again");
             }
         }
+        SignInDTO signInDTO = new SignInDTO(userName,password);
 
-        ResponseMessenger messenger = userController.login(new SignInDTO(userName,password));
-        if (messenger.getMessage().equals("login_failed")){
-            System.out.println("LOGIN_FAILED!please check username or password");
-            fromLogin();
-        }else {
-            System.out.println("=====login success=====");
-            new ViewAdmin().profile();
+        ResponseMessenger responseMessenger = userController.login(signInDTO);
+        switch (responseMessenger.getMessage()) {
+            case "blocked":
+                System.err.println("This user is blocked");
+                break;
+            case "login_success":
+                System.out.println("Login successful!");
+                new ViewAdmin().profile();
+                break;
+            case "login_failure":
+                System.out.println("Username or password is incorrect!");
         }
     }
 

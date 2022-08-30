@@ -3,12 +3,27 @@ package rikkei.academy.model;
 import java.io.Serializable;
 
 public class Food implements Comparable<Food>, Serializable {
-    int id;
-    String name;
-    int price;
+    private int id;
+    private String name;
+    private int price;
+    private Category category;
 
-    public Food() {
+    public Category getCategory() {
+        return category;
     }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Food(int id, String name, int price, Category category) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
+
+
 
     public Food(int id, String name, int price) {
         this.id = id;
@@ -16,9 +31,10 @@ public class Food implements Comparable<Food>, Serializable {
         this.price = price;
     }
 
-    public Food(String newName, String newPrice) {
+    public Food(String newName, String newPrice, Category category) {
         this.name = newName;
         this.price = Integer.parseInt(newPrice);
+        this.category = category;
     }
 
     public int getId() {
@@ -51,6 +67,7 @@ public class Food implements Comparable<Food>, Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", category=" + category +
                 '}';
     }
 

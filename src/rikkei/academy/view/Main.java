@@ -16,9 +16,12 @@ public class Main {
         if (user==null) {
             System.out.println("1.Register");
             System.out.println("2.Login");
+            System.out.println("3.Category Fast Food");
+            System.out.println("4.Search Fast Food");
 
         }else {
-            System.out.println("3.Continue");
+            System.out.println("5.Continue");
+
 
         }
 
@@ -31,6 +34,12 @@ public class Main {
                 new ViewMainMenu().fromLogin();
                 break;
             case 3:
+                new ViewMainMenu().formShowListFoodCategory();
+                break;
+            case 4:
+                new ViewMainMenu().formDetailFood();
+                break;
+            case 5:
                 new ViewAdmin().profile();
         }
 

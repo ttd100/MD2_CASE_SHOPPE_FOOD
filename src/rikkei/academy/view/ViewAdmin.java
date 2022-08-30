@@ -154,6 +154,7 @@ public class ViewAdmin {
             System.out.println("2.View Shop");
             System.out.println("3.View Driver");
             System.out.println("4.Register Admin");
+            System.out.println("5.View category");
             System.out.println("5.Log out");
 
             int chooseMenuAdmin = Config.scanner().nextInt();
@@ -179,7 +180,17 @@ public class ViewAdmin {
         } else if (roleUser.equals("USER")) {
             new ViewUser();
         } else if (roleUser.equals("SHOP")) {
-            new ViewShop();
+            System.out.println("1.ViewCategory");
+            System.out.println("2.View Food");
+            int choose = Config.scanner().nextInt();
+            switch (choose) {
+                case 1:
+                    new ViewCategory();
+                    break;
+                case 2:
+                    new ViewShop();
+                    break;
+            }
         } else if (roleUser.equals("DRIVER")) {
 
         }

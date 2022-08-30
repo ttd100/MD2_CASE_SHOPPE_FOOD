@@ -45,6 +45,21 @@ public class ViewManagerUser {
     }
 
     private void formBlockUser() {
+        showListUser();
+        System.out.println("Enter id user to block");
+        int id = Config.getValidInteger();
+        ResponseMessenger messenger = userController.blockUser(id);
+
+        switch (messenger.getMessage()) {
+            case "not_found":
+                System.err.println("ID not found");
+                break;
+            case "blocked":
+                System.out.println("You just blocked user id " + id);
+                break;
+            case "unblocked":
+                System.out.println("You just unblocked user id " + id);
+        }
     }
 
     private void formChangeRole() {

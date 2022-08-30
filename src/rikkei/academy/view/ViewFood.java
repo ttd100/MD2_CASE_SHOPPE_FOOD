@@ -1,7 +1,9 @@
 package rikkei.academy.view;
 
 import rikkei.academy.config.Config;
+import rikkei.academy.controller.CategoryController;
 import rikkei.academy.controller.FoodController;
+import rikkei.academy.model.Category;
 import rikkei.academy.model.Food;
 import rikkei.academy.model.User;
 
@@ -57,12 +59,16 @@ public class ViewFood {
             String nameFood = Config.scanner().nextLine();
             System.out.println("Enter price food : ");
             int price = Config.scanner().nextInt();
-            Food food = new Food(idfood, nameFood, price);
-            foodController.createFood(food);
+            System.out.println("Enter id food category : ");
+            int idFoodCategory = Config.scanner().nextInt();
+            Category categoryFood = new CategoryController().findById(idFoodCategory);
+            foodController.createFood(new Food(idfood,nameFood,price,categoryFood));
+//            Food food = new Food(idfood, nameFood, price);
+//            foodController.createFood(food);
             System.out.println("create success");
-            foodController.showListFood();
+            System.out.println(foodController.showListFood());
 
-            System.out.println("Enter quit to back menu: ");
+            System.out.println("Enter random quit to back menu : ");
             String backMenu = Config.scanner().nextLine();
             if (backMenu.equalsIgnoreCase("quit")) {
                 new ViewFood();
@@ -71,12 +77,13 @@ public class ViewFood {
     }
 
     public void formShowListFood() {
-        System.out.println("***********SHOW LIST FOOD***********");
-        System.out.printf("%-10s%-10s%-10s%n","id","Food","price");
-        for (int i = 0; i < foodList.size(); i++) {
-            int j = i + 1;
-            System.out.printf( "%-10d%-10s%-10d%n", j, foodList.get(i).getName(),foodList.get(i).getPrice());
-        }
+//        System.out.println("***********SHOW LIST FOOD***********");
+//        System.out.printf("%-10s%-10s%-10s%n","id","Food","price");
+//        for (int i = 0; i < foodList.size(); i++) {
+//            int j = i + 1;
+//            System.out.printf( "%-10d%-10s%-10d%n", j, foodList.get(i).getName(),foodList.get(i).getPrice());
+//        }
+        System.out.println(foodController.showListFood());
         System.out.println("Enter quit to back menu: ");
         String backMenu = Config.scanner().nextLine();
         if (backMenu.equalsIgnoreCase("quit")) {
@@ -84,12 +91,12 @@ public class ViewFood {
         }
     }
     public void formDetailFood() {
-        System.out.println("Enter id to detail: ");
-        int idFood = Config.scanner().nextInt();
-        if (foodController.detailFood(idFood) == null) {
-            System.out.println("id not found");
+        System.out.println("Enter name to detail: ");
+       String foodName = Config.scanner().nextLine();
+        if (foodController.findFoodByName(foodName) == null) {
+            System.out.println("name not found");
         } else {
-            Food food = foodController.detailFood(idFood);
+            Food food = foodController.findFoodByName(foodName);
             System.out.println(food);
         }
         System.out.println("Enter quit to back menu:");
@@ -108,6 +115,7 @@ public class ViewFood {
             Food food = foodController.detailFood(idFood);
             System.out.println("old name " + food.getName());
             System.out.println("old price " + food.getPrice());
+            System.out.println("old category"+food.getCategory());
             System.out.println("ENter name to edit: ");
             String newName = Config.scanner().nextLine();
             if (newName.trim().equals("")) {
@@ -118,7 +126,10 @@ public class ViewFood {
             if (newPrice.trim().equals("")){
                 newPrice = String.valueOf(food.getPrice());
             }
-            Food foodEdit = new Food(newName,newPrice);
+            System.out.println("Enter category to edit: ");
+            String newCategory = Config.scanner().nextLine();
+            Category category = new Category(newCategory);
+            Food foodEdit = new Food(newName,newPrice,category);
             foodController.updateFood(idFood,foodEdit);
             System.out.println("Edit success");
             foodController.showListFood();

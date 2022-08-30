@@ -26,4 +26,13 @@ public class FoodController {
     public List<Food> sortByNameAndByPrice() {
         return foodService.sortByNameAndByPrice();
     }
+    public Food findFoodByName(String name) {
+        return foodService.findFoodByName(name);
+    }
+    public Food findById(int id) {
+        return foodService.findById(id);
+    }
+    public void deleteFood(int id) {
+        foodService.deleteById(id);
+    }
 }
